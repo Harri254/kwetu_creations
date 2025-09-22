@@ -1,0 +1,19 @@
+#root{
+    --primary-color:#072E4A;
+    --secondary-color:#C4671B;
+    --sub-secondary:#3E170A;
+}
+.about{
+    background-color: url('../assets/KwetuArtwork.png');
+    padding:0 10px;
+    width: 80%;
+    margin:138px auto;
+}
+p{
+    font-size: 1.2em;
+    margin: 10px 0;
+    text-align: center;
+    span{
+        color: var(--secondary-color);
+    }
+}

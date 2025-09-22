@@ -1,0 +1,208 @@
+#root {
+  --primary-color: #072E4A;
+  --secondary-color: #C4671B;
+  --sub-secondary: #3E170A;
+}
+
+.product {
+  color: black;
+  width: 90%;
+  margin: 70px auto 20px;
+}
+
+.template-heading {
+  text-align: start;
+  text-decoration: none;
+  color: var(--primary-color);
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 1.8em;
+}
+
+
+nav .pr-nav-list {
+  width: 100%;
+  font-size: 1.5rem;
+  margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap; /* ✅ makes nav links wrap */
+  gap: 15px;
+  justify-content: center;
+  padding: 0;
+}
+
+nav .pr-nav-list li {
+  list-style: none;
+}
+
+.nav-cont {
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.temp-holder {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+  gap: 20px;
+}
+
+.temp-card {
+  flex: 1 1 calc(31% - 20px); /* ✅ 3 per row on large screens */
+  max-width: 400px;
+  min-width: 300px;
+  border: 1px solid #ccc;
+  margin: 5px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease;
+}
+
+.temp-card:hover {
+  transform: scale(1.03);
+}
+
+.temp-card img {
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+  object-fit: cover;
+}
+
+.price {
+  width: 90%;
+  margin: 0.5em auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.price p {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.price button {
+  width: 40%;
+  aspect-ratio: 12/4;
+  margin: 0 0 3px 0;
+  background-color: var(--secondary-color);
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.price button:hover {
+  opacity: 0.9;
+}
+
+/* ✅ Active vs Inactive NavLink */
+.active-link {
+  color: var(--secondary-color);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.inactive-link {
+  color: #000;
+}
+
+/* 🔹 Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .temp-card {
+    flex: 1 1 calc(45% - 20px); /* 2 per row */
+  }
+}
+
+@media (max-width: 768px) {
+  .template-heading {
+    font-size: 1.5em;
+    margin-left: 10px;
+    text-align: center;
+  }
+
+  .temp-card {
+    flex: 1 1 100%; /* 1 per row */
+    max-width: 90%;
+  }
+
+  .price p {
+    font-size: 1em;
+  }
+
+  .price button {
+    font-size: 0.9em;
+  }
+
+  nav .pr-nav-list {
+    font-size: 1.2rem;
+    gap: 10px;
+  }
+}
+/* Dropdown styles */
+.dropdown-container {
+  display: none; /* hidden on desktop */
+  width: 90%;
+  margin: 0 auto 15px;
+  text-align: center;
+  position: relative;
+}
+
+.dropdown-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  /* background: var(--primary-color); */
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.dropdown-btn:hover {
+  background: var(--secondary-color);
+}
+
+.dropdown-menu {
+  position: absolute;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+  border-radius: 6px;
+  list-style: none;
+  padding: 0;
+  z-index: 10;
+}
+
+.dropdown-menu li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.dropdown-menu li a {
+  color: var(--primary-color);
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-menu li:hover {
+  background: #f7f7f7;
+}
+
+/* Hide nav list on small screens */
+@media (max-width: 768px) {
+  .nav-cont {
+    display: none;
+  }
+  .dropdown-container {
+    display: block;
+  }
+}
