@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss,
   ],
-  base: '/kwetu-creations/', 
+  base: '/kwetu_creations/', 
 })
