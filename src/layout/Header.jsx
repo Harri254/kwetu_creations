@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import image from "../assets/KwetuArtwork.png";
+import image from "../assets/KwetuLogo.svg";
 import "./Header.css";
 
 function Header() {
@@ -18,7 +18,7 @@ const navLinkStyle = ({ isActive }) =>
       {/* Logo */}
       <div className="logo">
         <Link to="/">
-          <img src={image} alt="kwetu logo" width={30} height={20} onClick={handleLinkClick}/>
+          <img src={image} alt="kwetu logo" onClick={handleLinkClick}/>
         </Link>
       </div>
 

@@ -1,6 +1,6 @@
 import { NavLink, Link } from 'react-router-dom';
 import './Footer.css';
-import image from '../assets/KwetuArtwork.png';
+import image from '../assets/KwetuLogo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Footer() {
@@ -15,9 +15,7 @@ function Footer() {
         <div className="links">
           {/* Logo */}
           <Link to="/">
-            <div className="img-container">
-              <img src={image} alt="kwetu logo" className="logo-img" />
-            </div>
+            <img src={image} alt="kwetu logo" className="logo-img" />
           </Link>
         </div>
         <div className="links-throughs">
