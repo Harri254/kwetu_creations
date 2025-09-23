@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import './index.css'
 import Header from './layout/Header'
@@ -9,23 +9,21 @@ import Contact from './pages/Contact'
 import Footer from './layout/Footer'
 import "./icons.js";
 
-
 function App() {
-
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Header/>
       <Routes>
         <Route path='/' element={<Home/>}></Route>
         <Route path='/product' element={<Product/>}></Route>
         <Route path='/product/:category' element={<Product/>}></Route>
-        {/* <Route path='/services' element={<Body/>}></Route> */}
         <Route path='/about' element={<About/>}></Route>
         <Route path='/contact' element={<Contact/>}></Route>
       </Routes>
       <Footer/>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
 export default App
+
