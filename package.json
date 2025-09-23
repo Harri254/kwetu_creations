@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "deploy": "gh-pages -d dist"
   },
+  "homepage": "https://harri254.github.io/kwetu_creations",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.0.1",
     "@fortawesome/free-brands-svg-icons": "^7.0.1",
