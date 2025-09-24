@@ -14,11 +14,13 @@ const navLinkStyle = ({ isActive }) =>
   };
 
   return (
-    <header className="top-nav">
+    <header className="top-nav h-20">
       {/* Logo */}
-      <div className="logo">
+      <div className="logo w-60 h-11/12 flex items-center">
         <Link to="/">
-          <img src={image} alt="kwetu logo" onClick={handleLinkClick}/>
+          <img src={image} alt="kwetu logo" onClick={handleLinkClick}
+           className="!w-[20rem]"
+          />
         </Link>
       </div>
 
