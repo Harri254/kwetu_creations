@@ -1,4 +1,9 @@
 @import 'tailwindcss';
+
+@theme {
+  --breakpoint-sm: 37rem;
+}
+
 #root{
     --primary-color:#072E4A;
     --secondary-color:#C4671B;

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import image from "../assets/KwetuLogo.svg";
 import "./Header.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,11 +27,11 @@ const navLinkStyle = ({ isActive }) =>
 
       {/* Hamburger (mobile only) */}
       <button
-        className="menu-toggle"
+        className="menu-toggle bg-white"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle menu"
       >
-        ☰
+        <FontAwesomeIcon className="fa-solid" icon={'bars'} />
       </button>
 
       {/* Navigation */}

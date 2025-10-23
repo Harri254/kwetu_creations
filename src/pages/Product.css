@@ -103,11 +103,11 @@ nav .pr-nav-list li {
   opacity: 0.9;
 }
 
-/* ✅ Active vs Inactive NavLink */
+/*Active vs Inactive NavLink */
 .active-link {
   color: var(--secondary-color);
   font-weight: 600;
-  text-decoration: underline;
+  transform: scale(1.2);
 }
 
 .inactive-link {
