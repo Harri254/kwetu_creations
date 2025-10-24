@@ -2,27 +2,6 @@
 
 @theme {
   --breakpoint-sm: 37rem;
+  --color-primary:#072E4A;
+  --color-secondary:#C4671B;
 }
-
-#root{
-    --primary-color:#072E4A;
-    --secondary-color:#C4671B;
-    /* height: 100vh; */
-}
-html,body{
-    margin: 0;
-    padding: 0;
-    background-color: #ffffff00;
-    font-family: "Montserrat", sans-serif;
-    font-size: 14px;
-}
-*{
-    box-sizing: border-box;
-}
-a{
-    text-decoration: none;
-    color: #000000;
-    width: fit-content;
-}
-
-/* Headere css */

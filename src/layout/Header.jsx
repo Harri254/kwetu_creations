@@ -1,57 +1,36 @@
 import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import image from "../assets/KwetuLogo.svg";
-import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
-
-const navLinkStyle = ({ isActive }) =>
-  isActive ? "active-link" : "non-active-link";
-
-  const handleLinkClick = () => {
-    setIsOpen(false); // close menu after click
-  };
+  const menu = isOpen ? "block" : "hidden";
+    const navLinkStyle = ({ isActive }) =>
+  isActive ? "sm:text-secondary" : "sm:text-white";
 
   return (
-    <header className="top-nav h-20">
-      {/* Logo */}
-      <div className="logo w-60 h-11/12 flex items-center">
-        <Link to="/">
-          <img src={image} alt="kwetu logo" onClick={handleLinkClick}
-           className="!w-[20rem]"
-          />
-        </Link>
+    <header className="w-full h-15 bg-primary flex items-center">
+      <div className="w-[50%] flex items-center">
+          <img src={image} alt="kwetu logo" className="w-60" />
       </div>
 
-      {/* Hamburger (mobile only) */}
       <button
-        className="menu-toggle bg-white"
-        onClick={() => setIsOpen(!isOpen)}
-        aria-label="Toggle menu"
+        className={`ml-auto mr-3 text-secondary text-4xl sm:hidden`}
+        onClick={() =>setIsOpen(prev=>!prev)}
+        aria-expanded={isOpen}
+        aria-controls="main-nav"
       >
-        <FontAwesomeIcon className="fa-solid" icon={'bars'} />
+        <FontAwesomeIcon icon={faBars} />
       </button>
 
-      {/* Navigation */}
-      <nav className={isOpen ? "nav-menu open" : "nav-menu"}>
-        <ul>
-          <NavLink to="/" className={navLinkStyle} onClick={handleLinkClick}>
-            <li>Home</li>
-          </NavLink>
-          <NavLink to="/about" className={navLinkStyle} onClick={handleLinkClick}>
-            <li>About</li>
-          </NavLink>
-          <NavLink to="/product" className={navLinkStyle} onClick={handleLinkClick}>
-            <li>Product</li>
-          </NavLink>
-          {/* <NavLink to="/services" className={navLinkStyle} onClick={handleLinkClick}>
-            <li>Services</li>
-          </NavLink> */}
-          <NavLink to="/contact" className={navLinkStyle} onClick={handleLinkClick}>
-            <li>Contact</li>
-          </NavLink>
+      <nav id="main-nav" className={`${menu} absolute right-0 top-16 bg-secondary w-[40%] h-[10rem] sm:block sm:w-[60%] sm:relative sm:bg-inherit sm:h-5 sm:top-0  sm:ml-auto  z-40 lg:w-[35%]`}>
+        <ul className="flex flex-col sm:flex-row items-center h-[100%] text-[1.4rem] sm:text-white">
+          <li onclick={()=>setIsOpen(false)} className="hover:bg-primary w-full flex justify-center items-center hover:text-white h-[25%] md:h-fit"><NavLink to="/" className={navLinkStyle}>Home</NavLink></li>
+          <li onClick={()=>setIsOpen(false)} className="hover:bg-primary w-full flex justify-center items-center hover:text-white h-[25%] md:h-fit"><NavLink to="/about" className={navLinkStyle}>About</NavLink></li>
+          <li onClick={()=>setIsOpen(false)} className="hover:bg-primary w-full flex justify-center items-center hover:text-white h-[25%] md:h-fit"><NavLink to="/product" className={navLinkStyle}>Product</NavLink></li>
+          <li onClick={()=>setIsOpen(false)} className="hover:bg-primary w-full flex justify-center items-center hover:text-white h-[25%] md:h-fit"><NavLink to="/contact" className={navLinkStyle}>Contact</NavLink></li>
         </ul>
       </nav>
     </header>
