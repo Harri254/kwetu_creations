@@ -9,8 +9,8 @@ function Footer() {
   isActive ? "text-secondary" : "text-white";
 
   return (
-    <div className="w-screen bg-primary sm:h-[10rem] md:h-[20rem] md:w-full">
-      <div className="sm:flex sm:h-[8rem] md:h-[16rem]">
+    <div className="w-full bg-primary sm:h-[10rem] md:h-[20rem] md:w-full bottom-0">
+      <div className="w-full sm:flex sm:h-[8rem] md:h-[16rem]">
         <div className="hidden sm:w-[40%] sm:h-[6rem] sm:flex justify-items-end-safe md:w-[32%]">
             <img src={image} alt="kwetu logo" className="sm:h-[10rem] w-full md:h-[15rem]" />
         </div>
@@ -65,7 +65,7 @@ function Footer() {
 
       {/* Copyright */}
       <div className="text-white ">
-        <p className="!m-0 text-[1.2rem] ">&copy; {year} Kwetu Creations. All rights reserved </p>
+        <p className="!m-0 !text-[1.1rem] ">&copy; {year} Kwetu Creations. All rights reserved </p>
       </div>
     </div>
   );
