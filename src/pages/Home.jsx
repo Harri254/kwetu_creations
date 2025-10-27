@@ -19,7 +19,6 @@ const gallary = [
     { id: 7, image: place, price: 500, category: "services" },
     { id: 8, image: smile, price: 350, category: "services" },
     { id: 12, image: smile, price: 350, category: "services" },
-    { id: 9, image: worker, price: 600, category: "services" },
     { id: 10, image: worker, price: 600, category: "latest" },
 ];
 
