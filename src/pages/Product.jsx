@@ -7,6 +7,10 @@ const all = [
   { id: 1, image: book, price: 400, category: "brands" },
   { id: 6, image: book, price: 400, category: "brands" },
   { id: 5, image: coding, price: 400, category: "brands" },
+  { id: 7, image: coding, price: 400, category: "brands" },
+  { id: 9, image: coding, price: 400, category: "brands" },
+  { id: 8, image: coding, price: 400, category: "brands" },
+  { id: 10, image: coding, price: 400, category: "brands" },
   { id: 2, image: coding, price: 500, category: "motiondesigns" },
   { id: 3, image: book, price: 350, category: "marketingdesigns" },
   { id: 4, image: coding, price: 600, category: "poster" },
@@ -55,7 +59,7 @@ const navLinkstyle = ({ isActive }) =>
         </ul>
         <div className="w-full flex flex-col items-center justify-center mt-2 gap-2 sm:flex-row flex-wrap md:gap-6">
           {sortedCategory.map((product) => (
-            <div className="w-[90%] max-w-[400px] h-[20rem] flex flex-col items-center justify-around border-2 rounded-xl border-primary sm:w-[47%] md:w-[30%] hover:scale-[0.98] md:max-w-[500px] md:h-[24rem]" key={product.id}>
+            <div className="w-[90%] max-w-[400px] h-[20rem] flex flex-col items-center justify-around border-2 rounded-xl border-primary sm:w-[30%] md:w-[23%] hover:scale-[0.98] md:max-w-[500px] md:h-[24rem]" key={product.id}>
               <img src={product.image} alt={product.category} className="h-[88%] w-full max-w-[400px] rounded-t-[0.63rem] md:max-w-[500px]"/>
               <div className="h-[12%] flex items-center justify-between w-[90%] mx-auto ">
                 <p>
