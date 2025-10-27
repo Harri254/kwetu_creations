@@ -33,9 +33,9 @@ function Body(){
         <div className="flex flex-col gap-2 m-5">
             <div className="flex flex-col">
                 <h2 className="text-5xl text-[#c4671b] font-medium">Latest</h2>
-                <div className="flex gap-6 justify-center mt-4 flex-wrap">
+                <div className="flex gap-4 justify-center mt-4 flex-wrap">
                     {sortedLatest.map((gal) => (
-                    <div key={gal.id} className="w-[95%] mx-auto sm:w-[48%] lg:w-[30%]">
+                    <div key={gal.id} className="w-full mx-auto sm:w-[48%] lg:w-[30%]">
                         <img
                         className="hover:scale-[0.99] rounded-2xl w-full h-72 sm:h-[20rem] object-cover"
                         src={gal.image}
@@ -50,9 +50,9 @@ function Body(){
             <div className="flex flex-col">
                 <h2 className="text-[#964a0b] text-5xl mt-5 font-medium">Products</h2>
                 <h3 className="text-[#c4671b] text-3xl text-center">Templates</h3>
-                <div className="flex gap-6 justify-center mt-4 flex-wrap">
+                <div className="flex gap-4 justify-center mt-4 flex-wrap">
                     {sortedProducts.map((gal) => (
-                    <div key={gal.id} className="w-[95%] mx-auto sm:w-[48%] lg:w-[30%]">
+                    <div key={gal.id} className="w-full mx-auto sm:w-[48%] lg:w-[30%]">
                         <img
                         className="hover:scale-[0.99] rounded-2xl w-full h-72 sm:h-[20rem] object-cover"
                         src={gal.image}
@@ -67,9 +67,9 @@ function Body(){
                 <h2 className="text-[#964a0b] text-5xl mt-5 font-medium">Services</h2>
                 <div className="flex-col">
                     <h3 className="text-[#c4671b] text-3xl text-center">Designs</h3>
-                    <div className="flex gap-6 justify-center mt-4 flex-wrap">
+                    <div className="flex gap-4 justify-center mt-4 flex-wrap">
                         {sortedService.map((gal) => (
-                        <div key={gal.id} className="w-[95%] mx-auto sm:w-[48%] lg:w-[30%]">
+                        <div key={gal.id} className="w-full mx-auto sm:w-[48%] lg:w-[30%]">
                             <img
                             className="hover:scale-[0.99] rounded-2xl w-full h-72 sm:h-[20rem] object-cover"
                             src={gal.image}
