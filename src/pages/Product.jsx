@@ -1,5 +1,5 @@
 import { NavLink, useParams } from "react-router-dom";
-import book from "../assets/photos/output.jpg";
+import book from "../assets/photos/book.jpg";
 import coding from "../assets/photos/coding.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
