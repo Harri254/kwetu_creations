@@ -9,12 +9,12 @@ function Footer() {
   isActive ? "text-secondary" : "text-white";
 
   return (
-    <div className="w-full bg-primary sm:h-[10rem] md:h-[20rem] md:w-full bottom-0">
-      <div className="w-full sm:flex sm:h-[8rem] md:h-[16rem]">
+    <div className="w-full bg-primary h-fit md:w-full bottom-0">
+      <div className="w-full sm:flex sm:h-[8rem] md:h-[12rem]">
         <div className="hidden sm:w-[40%] sm:h-[6rem] sm:flex justify-items-end-safe md:w-[32%]">
             <img src={image} alt="kwetu logo" className="sm:h-[10rem] w-full md:h-[15rem]" />
         </div>
-        <div className="flex flex-col w-full sm:w-[60%] sm:h-[5rem] sm:my-auto md:flex-row md:h-[14rem] md:w-[68%]">
+        <div className="flex flex-col w-full sm:w-[60%] sm:h-[5rem] sm:my-auto md:flex-row md:h-[12rem] md:w-[68%]">
           <ul className="flex h-10 items-center justify-between w-[70%] mx-auto text-[16px] sm:w-[70%] md:flex-col md:h-[10rem] md:my-auto md:w-[30%] md:text-2xl md:mx-6">
             <li>
               <NavLink to="/" className={navLinkStyle}>
@@ -31,11 +31,6 @@ function Footer() {
                 Product
               </NavLink>
             </li>
-            {/* <li>
-              <NavLink to="/services" className={navLinkStyle}>
-                Services
-              </NavLink>
-            </li> */}
             <li>
               <NavLink to="/contact" className={navLinkStyle}>
                 Contact
@@ -63,9 +58,13 @@ function Footer() {
         </div>
       </div>
 
+      <div className="w-full flex items-center justify-center">
+        <button className="text-secondary text-xl w-[6rem] p-1 px-3 rounded-[0.5rem] text-center font-medium"><Link to="/logIn">Sign In</Link></button>
+      </div>
+
       {/* Copyright */}
-      <div className="text-white ">
-        <p className="!m-0 !text-[1.1rem] ">&copy; {year} Kwetu Creations. All rights reserved </p>
+      <div className="text-white flex justify-center">
+        <p className="!m-0 !text-[1.1rem] !text-center">&copy; {year} Kwetu Creations. All rights reserved </p>
       </div>
     </div>
   );

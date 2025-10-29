@@ -2,6 +2,7 @@
 
 @theme {
   --breakpoint-sm: 37rem;
+  --breakpoint-vsm: 29rem;
   --color-primary:#072E4A;
   --color-secondary:#C4671B;
 }

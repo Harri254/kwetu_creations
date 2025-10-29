@@ -7,18 +7,21 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import Footer from './layout/Footer'
 import "./icons.js";
+import LogIn from './pages/LogIn.jsx'
+import CreateAccount from './pages/CraeteAccount.jsx'
 
 
 function App() {
 
   return (
-    <BrowserRouter>
+    <BrowserRouter >
       <Header/>
       <Routes>
         <Route path='/' element={<Home/>}></Route>
         <Route path='/product' element={<Product/>}></Route>
         <Route path='/product/:category' element={<Product/>}></Route>
-        {/* <Route path='/orders' element={<Orders/>}></Route> */}
+        <Route path='/logIn' element={<LogIn/>}></Route>
+        <Route path='/logIn/createAccount' element={<CreateAccount/>}></Route>
         <Route path='/about' element={<About/>}></Route>
         <Route path='/contact' element={<Contact/>}></Route>
       </Routes>
