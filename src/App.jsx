@@ -9,6 +9,7 @@ import Footer from './layout/Footer'
 import "./icons.js";
 import LogIn from './pages/LogIn.jsx'
 import CreateAccount from './pages/CraeteAccount.jsx'
+import Owner from './pages/Owner.jsx'
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Header/>
       <Routes>
         <Route path='/' element={<Home/>}></Route>
+        <Route path='/owner' element={<Owner/>}></Route>
         <Route path='/product' element={<Product/>}></Route>
         <Route path='/product/:category' element={<Product/>}></Route>
         <Route path='/logIn' element={<LogIn/>}></Route>

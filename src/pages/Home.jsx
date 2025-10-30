@@ -25,7 +25,6 @@ const gallary = [
 const sortedLatest = gallary.filter((product) => product.category === "latest");
 const sortedProducts = gallary.filter((product) => product.category === "products");
 const sortedService = gallary.filter((product) => product.category === "services");
-console.log(sortedLatest);
 
 function Body(){
     return(
