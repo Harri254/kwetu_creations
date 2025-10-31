@@ -17,7 +17,7 @@ function Header() {
           <img src={image} alt="kwetu logo" className="w-60" />
       </div>
 
-      <button className="text-amber-600 text-xl min-w-[6rem] p-1 px-3 rounded-[0.5rem] ml-auto font-medium"><Link to="/logIn">Sign In</Link></button>
+      <button className="text-white hover:text-secondary text-xl min-w-[6rem] p-1 px-3 rounded-[0.5rem] ml-auto font-medium"><Link to="/logIn">Sign In</Link></button>
 
       <button
         className={`ml-auto mr-3 text-secondary text-4xl sm:hidden w-fit`}

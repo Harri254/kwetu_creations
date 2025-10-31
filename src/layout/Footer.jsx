@@ -59,7 +59,7 @@ function Footer() {
       </div>
 
       <div className="w-full flex items-center justify-center">
-        <button className="text-secondary text-xl w-[6rem] p-1 px-3 rounded-[0.5rem] text-center font-medium"><Link to="/logIn">Sign In</Link></button>
+        <button className="text-white hover:text-secondary text-xl w-[6rem] p-1 px-3 rounded-[0.5rem] text-center font-medium"><Link to="/logIn">Sign In</Link></button>
       </div>
 
       {/* Copyright */}
