@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
-import Header from './layout/Header'
 import Home from './pages/Home'
 import Product from './pages/Product'
 import About from './pages/About'
@@ -10,13 +9,15 @@ import "./icons.js";
 import LogIn from './pages/LogIn.jsx'
 import CreateAccount from './pages/CraeteAccount.jsx'
 import Owner from './pages/Owner.jsx'
+import Header from './layout/Header.jsx'
+
 
 
 function App() {
 
   return (
     <BrowserRouter >
-      <Header/>
+      <Header />
       <Routes>
         <Route path='/' element={<Home/>}></Route>
         <Route path='/owner' element={<Owner/>}></Route>

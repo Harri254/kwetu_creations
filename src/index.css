@@ -1,8 +1,12 @@
 @import 'tailwindcss';
 
-@theme {
+@theme{
   --breakpoint-sm: 37rem;
   --breakpoint-vsm: 29rem;
   --color-primary:#072E4A;
   --color-secondary:#C4671B;
+}
+html,body{
+  width: 100vw;
+  overflow-x: hidden;
 }
