@@ -10,25 +10,25 @@ function LogIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  
- const navigate = useNavigate();
-  const handleSubmit = (e)=>{
-    e.preventDefault();
 
-    const user = mockUsers.find((user) => user.username === username && user.password === password);
-    
-    if(!user){
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const user = mockUsers.find(
+      (user) => user.username === username && user.password === password
+    );
+    console.log(user);
+
+    if (!user) {
       setError("Invalid Credentials");
     }
 
-    if(user.role === "admin"){
+    if (user.role === "admin") {
       navigate("/owner");
-    }else{
-      navigate("/", {replace : true});
+    } else {
+      navigate("/", { replace: true });
     }
   };
-
-
 
   return (
     <div className="py-4 bg-[#f5f4f4] flex flex-col justify-center items-center pb-14">
@@ -53,7 +53,7 @@ function LogIn() {
           autoFocus
           maxLength={24}
           value={username}
-          onChange={(e)=>setUsername(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
         />
 
         <label htmlFor="password" className="mt-2 text-[#c4671b] pl-2 sm:mt-4">
@@ -85,13 +85,12 @@ function LogIn() {
         >
           Log In
         </button>
-        <button
-          type="button"
-          className=" text-[#c4671b] mt-2 text-[1.0rem]"
-        >
+        <button type="button" className=" text-[#c4671b] mt-2 text-[1.0rem]">
           Forgot Password
         </button>
-        {error && <p className="text-red-700 text-[1.2rem] text-center mb-2">{error}</p>}
+        {error && (
+          <p className="text-red-700 text-[1.2rem] text-center mb-2">{error}</p>
+        )}
         <p className="text-[0.8rem] m-0 text-center sm:text-[1.0rem]">
           Do not have an account?{" "}
           <Link
@@ -101,7 +100,6 @@ function LogIn() {
             Create Account
           </Link>
         </p>
-
       </form>
     </div>
   );
