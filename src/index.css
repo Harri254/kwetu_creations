@@ -5,6 +5,7 @@
   --breakpoint-vsm: 29rem;
   --color-primary:#072E4A;
   --color-secondary:#C4671B;
+  --color-tertiary:#ffffff;
 }
 html,body{
   width: 100vw;

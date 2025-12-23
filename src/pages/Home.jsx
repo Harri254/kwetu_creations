@@ -35,7 +35,7 @@ function Body(){
                     {sortedLatest.map((gal) => (
                     <div key={gal.id} className="w-full mx-auto sm:w-[48%] lg:w-[32%]">
                         <img
-                        className="hover:scale-[0.99] rounded-2xl w-full h-72 sm:h-[20rem] object-cover"
+                        className="hover:scale-[0.99] rounded-2xl w-full h-72 sm:h-[20rem] object-cover lg:h-[35rem]"
                         src={gal.image}
                         alt={gal.category}
                         />
@@ -52,7 +52,7 @@ function Body(){
                     {sortedProducts.map((gal) => (
                     <div key={gal.id} className="w-full mx-auto sm:w-[48%] lg:w-[32%]">
                         <img
-                        className="hover:scale-[0.99] rounded-2xl w-full h-72 sm:h-[20rem] object-cover"
+                        className="hover:scale-[0.99] rounded-2xl w-full h-72 sm:h-[20rem] object-cover lg:h-[35rem]"
                         src={gal.image}
                         alt={gal.category}
                         />
@@ -69,7 +69,7 @@ function Body(){
                         {sortedService.map((gal) => (
                         <div key={gal.id} className="w-full mx-auto sm:w-[48%] lg:w-[32%]">
                             <img
-                            className="hover:scale-[0.99] rounded-2xl w-full h-72 sm:h-[20rem] object-cover"
+                            className="hover:scale-[0.99] rounded-2xl w-full h-72 sm:h-[20rem] object-cover lg:h-[35rem]"
                             src={gal.image}
                             alt={gal.category}
                             />

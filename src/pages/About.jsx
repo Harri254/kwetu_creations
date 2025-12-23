@@ -1,7 +1,7 @@
 
 function About(){
     return(
-        <div className="text-2xl w-[95%] mx-auto my-8 text-center vsm:w-[80%] md:w-[70%] sm:w-full sm:p-6 ">
+        <div className="text-[14px] w-[95%] mx-auto my-8 text-center vsm:w-[80%] md:w-[70%] sm:w-full sm:p-6 md:text-2xl xl:text-4xl ">
             <p className="mt-4">
                 Welcome to KwetuCreations, where creativity meets innovation!
                 We are a passionate graphic design company dedicated to transforming

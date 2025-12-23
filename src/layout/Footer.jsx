@@ -6,7 +6,7 @@ function Footer() {
   const year = new Date().getFullYear();
 
   const navLinkStyle = ({ isActive }) =>
-  isActive ? "text-secondary" : "text-white";
+  isActive ? "text-secondary" : "text-tertiary";
 
   return (
     <div className="w-full bg-primary h-fit md:w-full bottom-0">

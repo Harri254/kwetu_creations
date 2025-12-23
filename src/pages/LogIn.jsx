@@ -31,14 +31,14 @@ function LogIn() {
   };
 
   return (
-    <div className="py-4 bg-[#f5f4f4] flex flex-col justify-center items-center pb-14">
-      <h3 className="w-[90%] my-4 mx-auto text-3xl text-center text-primary font-medium ">
+    <div className="py-4 bg-[#f5f4f4] flex flex-col justify-center items-center pb-14 md:h-[80vh] ">
+      <h3 className="w-[90%] my-4 mx-auto text-3xl text-center text-secondary font-medium ">
         Log In
       </h3>
       <form
         action=""
         onSubmit={handleSubmit}
-        className="flex flex-col p-4 max-w-[400px] bg-[#ffffff] text-[1.3rem] drop-shadow-blue-600 drop-shadow-xs rounded-3xl w-[90%] vsm:h-fit vsm:text-2xl"
+        className="flex flex-col p-4 max-w-[400px] bg-[#ffffff] text-[1.3rem] drop-shadow-primary drop-shadow-xs rounded-3xl w-[90%] vsm:h-fit vsm:text-2xl md:text-[2rem] lg:max-w-[38rem] lg:p-8"
       >
         <label htmlFor="username" className="text-[#c4671b] pl-2 sm:pt-4">
           {" "}
@@ -59,7 +59,7 @@ function LogIn() {
         <label htmlFor="password" className="mt-2 text-[#c4671b] pl-2 sm:mt-4">
           Password :
         </label>
-        <div className="relative w-[95%] mx-auto mt-2 sm:mt-3">
+        <div className="relative w-[95%] mx-auto mt-2 sm:mt-3 lg:text-3xl">
           <input
             type={showPassword ? "text" : "password"}
             name="password"
@@ -85,16 +85,16 @@ function LogIn() {
         >
           Log In
         </button>
-        <button type="button" className=" text-[#c4671b] mt-2 text-[1.0rem]">
+        <button type="button" className=" text-[#c4671b] mt-2 text-[1.0rem] lg:text-2xl">
           Forgot Password
         </button>
         {error && (
           <p className="text-red-700 text-[1.2rem] text-center mb-2">{error}</p>
         )}
-        <p className="text-[0.8rem] m-0 text-center sm:text-[1.0rem]">
+        <p className="text-[0.8rem] m-0 text-center sm:text-[1.0rem] lg:text-2xl">
           Do not have an account?{" "}
           <Link
-            to="/logIn/createAccount"
+            to="/createAccount"
             className=" text-[#c4671b] hover:text-amber-800"
           >
             Create Account

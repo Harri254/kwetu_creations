@@ -29,8 +29,8 @@ function CreateAccount(){
 
   return (
     <div className="py-4 bg-[#f5f4f4] flex flex-col justify-center items-center pb-14">
-      <h3 className="w-[90%] my-4 mx-auto text-3xl text-center text-primary font-medium ">Sign Up:</h3>
-      <form action="" onSubmit={handleSubmit} method="post" className="flex flex-col p-4 bg-[#ffffff] text-[1.2rem] drop-shadow-blue-600 drop-shadow-xs rounded-3xl w-[90%] h-fit vsm:h-fit max-w-[30rem] vsm:text-2xl">
+      <h3 className="w-[90%] py-8 my-4 mx-auto text-3xl text-center text-secondary font-medium lg:text-5xl">Sign Up:</h3>
+      <form action="" onSubmit={handleSubmit} method="post" className="flex flex-col p-4 bg-[#ffffff] text-[1.2rem] drop-shadow-blue-600 drop-shadow-xs rounded-3xl w-[90%] h-fit vsm:h-fit max-w-[30rem] vsm:text-2xl lg:text-3xl lg:w-[40rem] lg:p-4">
         <label htmlFor="username" className="text-[#c4671b] pl-2 sm:pt-4"> Enter  full name:</label>
         <input type="text" name="fullname" id="fullname" className="border-1 w-[95%] mx-auto rounded-[0.5rem] mt-2 h-10 pl-2 sm:py-6 sm:mt-3" required autoFocus maxLength={24}/>
 
@@ -84,7 +84,7 @@ function CreateAccount(){
         {error && <p className="text-red-700 text-[1.2rem] text-center mb-2">{error}</p>}
 
         <button type="submit" className="bg-[#c4671b] w-[95%] my-6 h-12 mx-auto rounded-[1rem] p-1 hover:bg-amber-800 text-white" >Submit</button>
-        <p className="text-[1.2rem] m-0 text-center">Have an account already? <Link to="/logIn" className=" text-[#c4671b] hover:text-amber-800">Log In</Link></p>
+        <p className="text-[1.2rem] m-0 text-center lg:text-3xl">Have an account already? <Link to="/logIn" className=" text-[#c4671b] hover:text-amber-800">Log In</Link></p>
       </form>
     </div>
   )
