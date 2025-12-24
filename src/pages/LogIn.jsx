@@ -1,101 +1,130 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { mockUsers } from "../context/mockUsers";
-import Owner from "./Owner";
 
 function LogIn() {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const user = mockUsers.find(
-      (user) => user.username === username && user.password === password
-    );
-    console.log(user);
+    setError("");
+    setLoading(true);
 
-    if (!user) {
-      setError("Invalid Credentials");
-    }
+    // Simulate a slight delay for better UX
+    setTimeout(() => {
+      const user = mockUsers.find(
+        (u) => u.username === username && u.password === password
+      );
 
-    if (user.role === "admin") {
-      navigate("/owner");
-    } else {
-      navigate("/", { replace: true });
-    }
+      if (!user) {
+        setError("Invalid username or password. Please try again.");
+        setLoading(false);
+        return; // Stop execution here if no user found
+      }
+
+      // Safe to check role now
+      if (user.role === "admin") {
+        navigate("/owner");
+      } else {
+        navigate("/", { replace: true });
+      }
+      setLoading(false);
+    }, 800);
   };
 
-  return (
-    <div className="py-4 bg-[#f5f4f4] flex flex-col justify-center items-center pb-14 md:h-[80vh] ">
-      <h3 className="w-[90%] my-4 mx-auto text-3xl text-center text-secondary font-medium lg:text-5xl">
-        Log In
-      </h3>
-      <form
-        action=""
-        onSubmit={handleSubmit}
-        className="flex flex-col p-4  bg-[#ffffff] text-[1.3rem] drop-shadow-primary drop-shadow-xs rounded-3xl w-[90%] vsm:h-fit vsm:text-2xl md:text-[2rem] lg:max-w-[38rem] lg:p-8"
-      >
-        <label htmlFor="username" className="text-[#c4671b] pl-2 sm:pt-4">
-          {" "}
-          Username :
-        </label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          className="border-1 w-[95%] mx-auto rounded-[0.5rem] mt-2 h-10 pl-2 sm:py-6 sm:mt-3 lg:h-15 lg:text-3xl md:pl-4"
-          required
-          autoFocus
-          maxLength={24}
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+  const inputClasses = "w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all text-primary text-base md:text-lg";
 
-        <label htmlFor="password" className="mt-2 text-[#c4671b] pl-2 sm:mt-4">
-          Password :
-        </label>
-        <div className="relative w-[95%] mx-auto mt-2 sm:mt-3 lg:text-3xl">
-          <input
-            type={showPassword ? "text" : "password"}
-            name="password"
-            id="password"
-            className="border-1 rounded-[0.5rem] pl-2 pr-10 h-10 w-full sm:py-6 lg:h-15 lg:text-3xl md:pl-4"
-            required
-            maxLength={24}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button
-            type="button"
-            onClick={() => setShowPassword((s) => !s)}
-            aria-label={showPassword ? "Hide password" : "Show password"}
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#c4671b]"
-          >
-            <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-          </button>
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center py-12 px-4">
+      
+      {/* Branding Header */}
+      <div className="text-center mb-8">
+        <div className="bg-secondary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-secondary text-2xl">
+          <FontAwesomeIcon icon={faLock} />
         </div>
+        <h1 className="text-3xl md:text-4xl font-bold text-primary">Welcome Back</h1>
+        <p className="text-gray-500 mt-2">Log in to manage your KwetuCreations account</p>
+      </div>
+
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-8 rounded-3xl shadow-xl w-full max-w-md space-y-6 border border-gray-100"
+      >
+        {/* Username field */}
+        <div>
+          <label htmlFor="username" className="block text-sm font-semibold text-primary mb-1 ml-1">
+            Username
+          </label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Enter your username"
+            className={inputClasses}
+            required
+            autoFocus
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+
+        {/* Password field */}
+        <div>
+          <div className="flex justify-between items-center mb-1 ml-1">
+            <label htmlFor="password" className="block text-sm font-semibold text-primary">
+              Password
+            </label>
+            <button type="button" className="text-xs text-secondary hover:underline font-medium">
+              Forgot Password?
+            </button>
+          </div>
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              placeholder="••••••••"
+              className={inputClasses}
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-secondary p-1"
+            >
+              <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+            </button>
+          </div>
+        </div>
+
+        {/* Error Notification */}
+        {error && (
+          <div className="bg-red-50 text-red-600 text-sm p-3 rounded-lg text-center font-medium animate-pulse">
+            {error}
+          </div>
+        )}
+
         <button
           type="submit"
-          className="bg-[#c4671b] mt-6 w-[95%] mx-auto rounded-[0.8rem] p-1 py-3 hover:bg-amber-800 text-white lg:mt-10"
+          disabled={loading}
+          className={`w-full bg-secondary hover:bg-opacity-90 text-white font-bold py-4 rounded-xl shadow-lg shadow-secondary/20 transition-all transform active:scale-95 ${loading ? "opacity-70 cursor-wait" : ""}`}
         >
-          Log In
+          {loading ? "Authenticating..." : "Log In"}
         </button>
-        <button type="button" className=" text-[#c4671b] mt-2 text-[1.0rem] lg:text-3xl">
-          Forgot Password
-        </button>
-        {error && (
-          <p className="text-red-700 text-[1.2rem] text-center mb-2">{error}</p>
-        )}
-        <p className="text-[0.8rem] m-0 text-center sm:text-[1.0rem] lg:text-3xl">
-          Do not have an account?{" "}
+
+        <p className="text-center text-gray-600 mt-6">
+          New here?{" "}
           <Link
             to="/createAccount"
-            className=" text-[#c4671b] hover:text-amber-800"
+            className="text-secondary font-bold hover:underline"
           >
             Create Account
           </Link>

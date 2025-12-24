@@ -22,64 +22,51 @@ const gallary = [
     { id: 10, image: worker, price: 600, category: "latest" },
 ];
 
-const sortedLatest = gallary.filter((product) => product.category === "latest");
-const sortedProducts = gallary.filter((product) => product.category === "products");
-const sortedService = gallary.filter((product) => product.category === "services");
+const GalleryCard = ({ item }) => (
+  <div className="group relative overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-500 hover:shadow-xl">
+    <img
+      className="w-full h-72 sm:h-80 lg:h-[30rem] object-cover transition-transform duration-700 group-hover:scale-110"
+      src={item.image}
+      alt={item.category}
+    />
+    {/* Hover Overlay */}
+    <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+      <div className="text-white w-full flex justify-between items-center translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+        <span className="text-lg font-semibold uppercase tracking-wider">{item.category}</span>
+        <span className="bg-secondary px-4 py-1 rounded-full text-sm font-bold">KES {item.price}</span>
+      </div>
+    </div>
+  </div>
+);
 
-function Body(){
-    return(
-        <div className="flex flex-col gap-2 m-5">
-            <div className="flex flex-col">
-                <h2 className="text-5xl text-[#c4671b] font-medium">Latest</h2>
-                <div className="flex gap-4 justify-center mt-4 flex-wrap">
-                    {sortedLatest.map((gal) => (
-                    <div key={gal.id} className="w-full mx-auto sm:w-[48%] lg:w-[32%]">
-                        <img
-                        className="hover:scale-[0.99] rounded-2xl w-full h-72 sm:h-[20rem] object-cover lg:h-[35rem]"
-                        src={gal.image}
-                        alt={gal.category}
-                        />
-                    </div>
-                    ))}
-                </div>
+const GallerySection = ({ title, subtitle, items }) => (
+  <section className="mb-16">
+    <div className="flex flex-col mb-8">
+      <h2 className="text-4xl md:text-5xl text-primary font-bold">{title}</h2>
+      {subtitle && <h3 className="text-secondary text-xl md:text-2xl mt-2 font-medium">{subtitle}</h3>}
+      <div className="h-1 w-20 bg-secondary mt-4 rounded-full"></div>
+    </div>
+    
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      {items.map((item) => (
+        <GalleryCard key={item.id} item={item} />
+      ))}
+    </div>
+  </section>
+);
 
-            </div>
+function Body() {
+  const sortedLatest = gallary.filter((p) => p.category === "latest");
+  const sortedProducts = gallary.filter((p) => p.category === "products");
+  const sortedService = gallary.filter((p) => p.category === "services");
 
-            <div className="flex flex-col">
-                <h2 className="text-[#964a0b] text-5xl mt-5 font-medium">Products</h2>
-                <h3 className="text-[#c4671b] text-3xl text-center">Templates</h3>
-                <div className="flex gap-4 justify-center mt-4 flex-wrap">
-                    {sortedProducts.map((gal) => (
-                    <div key={gal.id} className="w-full mx-auto sm:w-[48%] lg:w-[32%]">
-                        <img
-                        className="hover:scale-[0.99] rounded-2xl w-full h-72 sm:h-[20rem] object-cover lg:h-[35rem]"
-                        src={gal.image}
-                        alt={gal.category}
-                        />
-                    </div>
-                    ))}
-                </div>
-
-            </div>
-            <div className="flex-col">
-                <h2 className="text-[#964a0b] text-5xl mt-5 font-medium">Services</h2>
-                <div className="flex-col">
-                    <h3 className="text-[#c4671b] text-3xl text-center">Designs</h3>
-                    <div className="flex gap-4 justify-center mt-4 flex-wrap">
-                        {sortedService.map((gal) => (
-                        <div key={gal.id} className="w-full mx-auto sm:w-[48%] lg:w-[32%]">
-                            <img
-                            className="hover:scale-[0.99] rounded-2xl w-full h-72 sm:h-[20rem] object-cover lg:h-[35rem]"
-                            src={gal.image}
-                            alt={gal.category}
-                            />
-                        </div>
-                        ))}
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    )
+  return (
+    <main className="max-w-7xl mx-auto px-6 py-12">
+      <GallerySection title="Latest Work" items={sortedLatest} />
+      <GallerySection title="Products" subtitle="Premium Templates" items={sortedProducts} />
+      <GallerySection title="Our Services" subtitle="Custom Designs" items={sortedService} />
+    </main>
+  );
 }
+
 export default Body;

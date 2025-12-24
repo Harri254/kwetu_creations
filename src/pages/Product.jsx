@@ -2,8 +2,9 @@ import { NavLink, useParams } from "react-router-dom";
 import book from "../assets/photos/book.jpg";
 import coding from "../assets/photos/coding.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
-const all = [
+const allProducts = [
   { id: 1, image: book, price: 400, category: "brands" },
   { id: 6, image: book, price: 400, category: "brands" },
   { id: 5, image: coding, price: 400, category: "brands" },
@@ -18,59 +19,81 @@ const all = [
 
 function Product() {
   const { category } = useParams();
-  // const [isOpen, setIsOpen] = useState(false);
 
-const navLinkstyle = ({ isActive }) =>
-  isActive ? "text-secondary" : "text-black";
+  const navLinkStyle = ({ isActive }) =>
+    `pb-2 transition-all duration-300 border-b-2 ${
+      isActive ? "text-secondary border-secondary font-bold" : "text-gray-500 border-transparent hover:text-primary"
+    }`;
 
-  const sortedCategory = category ? all.filter((product) => product.category === category) : all;
+  const filteredProducts = category 
+    ? allProducts.filter((p) => p.category === category) 
+    : allProducts;
 
   return (
-    <div className="flex flex-col h-full my-2 mb-8 text-[14px]">
-      <h2 className="text-2xl text-gray-950 font-medium my-2 ml-2 md:text-4xl">Product Templates</h2>
-      <hr className="text-amber-500"/>
-      <div className="flex flex-col">
-        <ul className="flex flex-row items-center flex-wrap text-xl justify-around gap-x-8 mx-1.5 md:w-[60%] md:mx-auto lg:w-[40%]">
-          <li>
-            <NavLink to="/product" end className={navLinkstyle}>
-              All
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/product/brands" className={navLinkstyle} >
-              Brands
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/product/motiondesigns" className={navLinkstyle} >
-              Motion 
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/product/marketingdesigns"className={navLinkstyle} >
-              Marketing
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/product/poster" className={navLinkstyle} >
-              Posters
-            </NavLink>
-          </li>
+    <div className="max-w-7xl mx-auto px-4 py-8 min-h-screen">
+      {/* Header Section */}
+      <div className="mb-10 text-center md:text-left">
+        <h2 className="text-3xl md:text-5xl font-bold text-primary mb-2">Product Templates</h2>
+        <p className="text-gray-500">Premium design assets for your creative projects</p>
+      </div>
+
+      {/* Category Navigation */}
+      <nav className="sticky top-[70px] bg-white/90 backdrop-blur-md z-30 py-4 mb-8 border-b border-gray-100">
+        <ul className="flex items-center justify-center gap-6 md:gap-10 overflow-x-auto whitespace-nowrap scrollbar-hide px-2">
+          <li><NavLink to="/product" end className={navLinkStyle}>All</NavLink></li>
+          <li><NavLink to="/product/brands" className={navLinkStyle}>Brands</NavLink></li>
+          <li><NavLink to="/product/motiondesigns" className={navLinkStyle}>Motion</NavLink></li>
+          <li><NavLink to="/product/marketingdesigns" className={navLinkStyle}>Marketing</NavLink></li>
+          <li><NavLink to="/product/poster" className={navLinkStyle}>Posters</NavLink></li>
         </ul>
-        <div className="w-full flex flex-col items-center justify-center mt-2 gap-2 sm:flex-row flex-wrap md:gap-6">
-          {sortedCategory.map((product) => (
-            <div className="w-[90%] max-w-[400px] h-[20rem] flex flex-col items-center justify-around border-2 rounded-xl border-primary sm:w-[48%] md:w-[30%] hover:scale-[0.98] md:max-w-[500px] lg:h-[30rem]" key={product.id}>
-              <img src={product.image} alt={product.category} className="h-[88%] w-full max-w-[400px] rounded-t-[0.63rem] md:max-w-[500px]"/>
-              <div className="h-[12%] flex items-center justify-between w-[90%] mx-auto ">
-                <p>
-                  Kshs. <span>{product.price}</span>
-                </p>
-                <button className="text-[1.2rem] text-white bg-primary h-[80%] px-[1.2rem] rounded-2xl hover:cursor-pointer">Add <FontAwesomeIcon icon={["fas", "fa-cart-shopping"]} className="fa-xs"/></button>
+      </nav>
+
+      {/* Product Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {filteredProducts.map((product) => (
+          <div 
+            key={product.id} 
+            className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col"
+          >
+            {/* Image Container */}
+            <div className="relative aspect-[4/5] overflow-hidden">
+              <img 
+                src={product.image} 
+                alt={product.category} 
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute top-3 left-3 bg-secondary/80 backdrop-blur-sm text-white text-[10px] px-3 py-1 rounded-full uppercase tracking-widest">
+                {product.category.replace('designs', '')}
               </div>
             </div>
-          ))}
-        </div>
+
+            {/* Content Container */}
+            <div className="p-5 flex flex-col justify-between flex-grow">
+              <div className="mb-4">
+                <h4 className="text-secondary font-bold text-lg">Premium Asset #{product.id}</h4>
+              </div>
+              
+              <div className="flex items-center justify-between mt-auto">
+                <span className="text-2xl font-extrabold text-primary">
+                  <span className="text-sm font-normal text-gray-400 mr-1">KES</span>
+                  {product.price}
+                </span>
+                
+                <button className="bg-primary text-white p-3 rounded-xl hover:bg-secondary transition-colors shadow-md shadow-primary/10">
+                  <FontAwesomeIcon icon={faCartPlus} />
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
+
+      {/* Empty State */}
+      {filteredProducts.length === 0 && (
+        <div className="text-center py-20">
+          <p className="text-gray-400 text-xl italic">No templates found in this category yet.</p>
+        </div>
+      )}
     </div>
   );
 }

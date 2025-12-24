@@ -1,11 +1,10 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faPhone, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,74 +13,113 @@ function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    alert("Thank you for your message!");
-    setFormData({ name: "", email: "", message: "" });
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      console.log("Form submitted:", formData);
+      alert("Thank you for your message! We'll get back to you soon.");
+      setFormData({ name: "", email: "", message: "" });
+      setIsSubmitting(false);
+    }, 1500);
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen px-4 bg-[#f5f4f4] ">
-      <form
-        id="contact-form"
-        onSubmit={handleSubmit}
-        className="w-full max-w-[40rem] max-h-[80%] bg-[#ffffff] p-8 rounded-2xl shadow-lg space-y-5 lg:text-2xl"
-      >
-        <h2 className="text-2xl font-bold text-center text-[#C4671B] mb-4 underline lg:text-4xl">
-          Contact Us
-        </h2>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 shadow-2xl rounded-3xl overflow-hidden bg-white">
+        
+        {/* Left Side: Contact Information */}
+        <div className="bg-primary p-8 lg:p-12 text-white flex flex-col justify-between">
+          <div>
+            <h2 className="text-3xl lg:text-4xl font-bold mb-6">Let's build something <span className="text-secondary">amazing</span> together.</h2>
+            <p className="text-gray-300 mb-10">
+              Have a project in mind? Fill out the form and our team will get back to you within 24 hours.
+            </p>
 
-        <div className="">
-          <label htmlFor="name" className="block text-[#C4671B] font-semibold mb-2">
-            Full Name:
-          </label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            autoFocus
-            className="w-full border text-primary border-gray-300 rounded-lg px-4 py-2 focus:outline-none "
-          />
+            <div className="space-y-6">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-secondary">
+                  <FontAwesomeIcon icon={faPhone} />
+                </div>
+                <span>+254 700 000 000</span>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-secondary">
+                  <FontAwesomeIcon icon={faEnvelope} />
+                </div>
+                <span>hello@kwetucreations.com</span>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-secondary">
+                  <FontAwesomeIcon icon={faLocationDot} />
+                </div>
+                <span>Nairobi, Kenya</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12">
+             <p className="text-sm text-gray-400 italic font-light">"Your Vision Is Our Mission"</p>
+          </div>
         </div>
 
-        <div>
-          <label htmlFor="email" className="block text-[#C4671B] font-semibold mb-2">
-            Email:
-          </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full border text-primary border-gray-300 rounded-lg px-4 py-2 focus:outline-none "
-          />
-        </div>
+        {/* Right Side: Contact Form */}
+        <div className="p-8 lg:p-12">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                placeholder="John Doe"
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all"
+              />
+            </div>
 
-        <div>
-          <label htmlFor="message" className="block text-[#C4671B] font-semibold mb-2">
-            Message:
-          </label>
-          <textarea
-            name="message"
-            id="message"
-            value={formData.message}
-            onChange={handleChange}
-            required
-            className="w-full border text-primary border-gray-300 rounded-lg px-4 py-2 min-h-[200px] resize-y focus:outline-none"
-          ></textarea>
-        </div>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                placeholder="john@example.com"
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all"
+              />
+            </div>
 
-        <button
-          type="submit"
-          className="block mx-auto w-full py-2 bg-[#C4671B] text-tertiary font-semibold rounded-lg shadow hover:bg-[#a05217] transition-all"
-        >
-          Submit
-        </button>
-      </form>
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Project Details</label>
+              <textarea
+                name="message"
+                id="message"
+                rows="5"
+                value={formData.message}
+                onChange={handleChange}
+                required
+                placeholder="Tell us about your design needs..."
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all resize-none"
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={`w-full py-4 bg-secondary text-white font-bold rounded-xl shadow-lg transition-all transform active:scale-[0.98] ${
+                isSubmitting ? "opacity-70 cursor-not-allowed" : "hover:bg-opacity-90 hover:shadow-secondary/20"
+              }`}
+            >
+              {isSubmitting ? "Sending Message..." : "Send Message"}
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

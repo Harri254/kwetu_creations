@@ -1,97 +1,149 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-function CreateAccount(){
+function CreateAccount() {
   const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [formData, setFormData] = useState({
+    fullname: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [error, setError] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
+    if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match!");
-    } else if (password.length < 8) {
-      setError("Password must be at least 8 characters long!");
-    } else {
-      setError("");
-      alert("✅ Passwords match — form submitted!");
-
-      e.target.reset();
-      setPassword("");
-      setConfirmPassword("");
-      setShowPassword(false);
+      return;
     }
+    if (formData.password.length < 8) {
+      setError("Password must be at least 8 characters long!");
+      return;
+    }
+
+    setError("");
+    alert("✅ Account created successfully!");
+    // Logic to send data to your backend would go here
   };
 
+  const inputClasses = "w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all";
+
   return (
-    <div className="py-4 bg-[#f5f4f4] flex flex-col justify-center items-center pb-14">
-      <h3 className="w-[90%] py-8 my-4 mx-auto text-3xl text-center text-secondary font-medium lg:text-5xl md:py-12">Sign Up:</h3>
-      <form action="" onSubmit={handleSubmit} method="post" 
-      className="flex flex-col p-4 bg-[#ffffff] text-[1.2rem]
-       drop-shadow-blue-600 drop-shadow-xs rounded-3xl w-[90%] 
-       h-fit vsm:h-fit  vsm:text-2xl lg:text-3xl 
-       lg:w-[40rem] lg:px-8">
-        <label htmlFor="username" className="text-[#c4671b] pl-2 sm:pt-4"> Full name:</label>
-        <input type="text" name="fullname" id="fullname" className="border-1 w-[95%] mx-auto rounded-[0.5rem] mt-2 h-10 pl-2 sm:py-6 sm:mt-3" required autoFocus maxLength={24}/>
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center py-12 px-4">
+      
+      {/* Header Section */}
+      <div className="text-center mb-8">
+        <div className="bg-secondary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-secondary text-2xl">
+          <FontAwesomeIcon icon={faUserPlus} />
+        </div>
+        <h1 className="text-3xl md:text-4xl font-bold text-primary">Create an Account</h1>
+        <p className="text-gray-500 mt-2">Join KwetuCreations and start your journey</p>
+      </div>
 
-        <label htmlFor="username" className="text-[#c4671b] pl-2 sm:pt-4"> Email:</label>
-        <input type="email" name="email" id="email" className="border-1 w-[95%] mx-auto rounded-[0.5rem] mt-2 h-10 pl-2 sm:py-6 sm:mt-3" required maxLength={24}/>
-
-        <label htmlFor="password" className="mt-2 text-[#c4671b] pl-2 sm:mt-4">Create  Password:</label>
-        <div className="relative w-[95%] mx-auto mt-2 sm:mt-3">
-          <input
-            type={showPassword ? "text" : "password"}
-            name="password"
-            id="password"
-            className="border-1 rounded-[0.5rem] pl-2 pr-10 h-10 w-full sm:py-6"
-            required
-            maxLength={24}
-            value={password}
-            onChange={(e)=>setPassword(e.target.value)}
+      <form 
+        onSubmit={handleSubmit} 
+        className="bg-white p-8 rounded-3xl shadow-xl w-full max-w-md space-y-5 border border-gray-100"
+      >
+        {/* Full Name */}
+        <div>
+          <label className="block text-sm font-semibold text-primary mb-1 ml-1">Full Name</label>
+          <input 
+            type="text" 
+            name="fullname" 
+            placeholder="Jane Doe"
+            className={inputClasses}
+            required 
+            autoFocus 
+            value={formData.fullname}
+            onChange={handleChange}
           />
-          <button
-            type="button"
-            onClick={() => setShowPassword((s) => !s)}
-            aria-label={showPassword ? "Hide password" : "Show password"}
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#c4671b]"
-          >
-            <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-          </button>
         </div>
 
-        <label htmlFor="createPassword" className="mt-2 text-[#c4671b] pl-2 sm:mt-4">Confirm   Password:</label>
-        <div className="relative w-[95%] mx-auto mt-2 sm:mt-3">
-          <input
-            type={showPassword ? "text" : "password"}
-            name="createPassword"
-            id="createPassword"
-            className="border-1 rounded-[0.5rem] pl-2 pr-10 h-10 w-full sm:py-6"
-            required
-            maxLength={24}
-            value={confirmPassword}
-            onChange={(e)=>setConfirmPassword(e.target.value)}
+        {/* Email */}
+        <div>
+          <label className="block text-sm font-semibold text-primary mb-1 ml-1">Email Address</label>
+          <input 
+            type="email" 
+            name="email" 
+            placeholder="jane@example.com"
+            className={inputClasses}
+            required 
+            value={formData.email}
+            onChange={handleChange}
           />
-          <button
-            type="button"
-            onClick={() => setShowPassword((s) => !s)}
-            aria-label={showPassword ? "Hide password" : "Show password"}
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#c4671b]"
-          >
-            <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-          </button>
         </div>
 
-        {error && <p className="text-red-700 text-[1.2rem] text-center mb-2 md:text-2xl mt-4">{error}</p>}
+        {/* Password */}
+        <div>
+          <label className="block text-sm font-semibold text-primary mb-1 ml-1">Create Password</label>
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="••••••••"
+              className={inputClasses}
+              required
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-secondary"
+            >
+              <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+            </button>
+          </div>
+        </div>
 
-        <button type="submit" className="bg-[#c4671b] w-[95%] my-6 h-12 mx-auto rounded-[1rem] p-1 hover:bg-amber-800 text-white" >Submit</button>
-        <p className="text-[1.2rem] m-0 text-center lg:text-3xl mb-4 md:mb-6">Have an account already? <Link to="/logIn" className=" text-[#c4671b] hover:text-amber-800">Log In</Link></p>
+        {/* Confirm Password */}
+        <div>
+          <label className="block text-sm font-semibold text-primary mb-1 ml-1">Confirm Password</label>
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="confirmPassword"
+              placeholder="••••••••"
+              className={inputClasses}
+              required
+              value={formData.confirmPassword}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+
+        {/* Error Message */}
+        {error && (
+          <div className="bg-red-50 text-red-600 text-sm p-3 rounded-lg text-center font-medium animate-shake">
+            {error}
+          </div>
+        )}
+
+        <button 
+          type="submit" 
+          className="w-full bg-secondary hover:bg-opacity-90 text-white font-bold py-4 rounded-xl shadow-lg shadow-secondary/20 transition-all transform active:scale-95 mt-4"
+        >
+          Sign Up
+        </button>
+
+        <p className="text-center text-gray-600 mt-6">
+          Already have an account?{" "}
+          <Link to="/logIn" className="text-secondary font-bold hover:underline">
+            Log In
+          </Link>
+        </p>
       </form>
     </div>
-  )
+  );
 }
 
 export default CreateAccount;
