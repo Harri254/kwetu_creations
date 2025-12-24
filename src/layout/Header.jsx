@@ -1,55 +1,82 @@
 import { useState, useEffect } from "react";
-import { NavLink, Link, Links } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import image from "../assets/KwetuLogo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const menu = isOpen ? "block" : "hidden";
-  const overlay = isOpen ? "fixed inset-0 bg-opacity-50 z-30" : "hidden";
-  const navLinkStyle = ({ isActive }) =>
-    isActive ? "text-secondary" : "text-white";
 
-  // Add useEffect to handle body overflow
+  const navLinkStyle = ({ isActive }) =>
+    `hover:text-secondary transition-colors duration-300 ${
+      isActive ? "text-secondary font-bold" : "text-white"
+    }`;
+
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    
-    // Cleanup function
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
+    document.body.style.overflow = isOpen ? "hidden" : "unset";
+    return () => { document.body.style.overflow = "unset"; };
   }, [isOpen]);
 
   return (
     <>
-      <div className={overlay} onClick={() => setIsOpen(false)}></div>
-      <header className="w-screen h-15 bg-primary flex items-center relative">
-        <div className="w-fit overflow-hidden flex items-center">
-            <img src={image} alt="kwetu logo" className="w-60" />
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-opacity-50 z-40 lg:hidden" 
+          onClick={() => setIsOpen(false)}
+        ></div>
+      )}
+
+      {/* Reduced vertical padding (py-1 or py-2) */}
+      <header className="bg-primary text-white py-1 px-4 sticky top-0 z-50 shadow-md h-[4rem] overflow-hidden">
+        <div className="container mx-auto flex justify-between items-center mt-[-1.2em]">
+          
+          {/* Enhanced Logo visibility for large screens */}
+          <Link to="/" className="flex items-center">
+            <img 
+              src={image} 
+              alt="kwetu logo" 
+              className="w-24 lg:w-40 object-cover transition-all duration-300" 
+            />
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex space-x-8 items-center">
+            <NavLink to="/" className={navLinkStyle}>Home</NavLink>
+            <NavLink to="/about" className={navLinkStyle}>About</NavLink>
+            <NavLink to="/product" className={navLinkStyle}>Product</NavLink>
+            <NavLink to="/contact" className={navLinkStyle}>Contact</NavLink>
+            <Link 
+              to="/logIn" 
+              className="bg-secondary px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition"
+            >
+              Sign In
+            </Link>
+          </nav>
+
+          {/* Mobile UI */}
+          <div className="lg:hidden flex items-center gap-4">
+             <Link to="/logIn" className="text-sm border border-white px-3 py-1 rounded">Sign In</Link>
+             <button
+                className="text-2xl focus:outline-none"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                <FontAwesomeIcon icon={isOpen ? faTimes : faBars} />
+              </button>
+          </div>
         </div>
 
-        <button className="text-white hover:text-secondary text-xl min-w-[6rem] p-1 px-3 rounded-[0.5rem] ml-auto font-medium"><Link to="/logIn">Sign In</Link></button>
-
-        <button
-          className={`ml-auto mr-3 text-secondary text-4xl sm:hidden w-fit`}
-          onClick={() =>setIsOpen(prev=>!prev)}
-          aria-expanded={isOpen}
-          aria-controls="main-nav"
+        {/* Sidebar */}
+        <nav 
+          className={`fixed top-0 right-0 h-fit rounded-b-2xl w-40 bg-primary shadow-2xl transform transition-transform duration-300 ease-in-out z-50 lg:hidden ${
+            isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
         >
-          <FontAwesomeIcon icon={faBars} className="w-fit"/>
-        </button>
-        <nav id="main-nav" className={`${menu} fixed right-0 top-15 bg-primary w-fit h-fit sm:items-center sm:justify-center sm:w-[70%] sm:relative sm:bg-inherit sm:top-0 sm:ml-auto z-40 lg:w-[35%] rounded-b-xl sm:h-fit sm:flex`}>
-          <ul className="flex flex-col sm:flex-row items-center sm:justify-around h-[100%] text-[1.4rem] text-white sm:gap-4 sm:w-fit sm:ml-auto sm:mr-6">
-            <li onClick={()=>setIsOpen(false)} className="hover:bg-primary w-full flex py-1.5 px-16 sm:px-2 justify-center items-center hover:text-white h-fit md:h-fit rounded-[0.6rem]"><NavLink to="/" className={navLinkStyle}>Home</NavLink></li>
-            <li onClick={()=>setIsOpen(false)} className="hover:bg-primary w-full flex py-1.5 px-16 sm:px-2 justify-center items-center hover:text-white h-fit md:h-fit rounded-[0.6rem]"><NavLink to="/about" className={navLinkStyle}>About</NavLink></li>
-            <li onClick={()=>setIsOpen(false)} className="hover:bg-primary w-full flex py-1.5 px-16 sm:px-2 justify-center items-center hover:text-white h-fit md:h-fit rounded-[0.6rem]"><NavLink to="/product" className={navLinkStyle}>Product</NavLink></li>
-            <li onClick={()=>setIsOpen(false)} className="hover:bg-primary w-full flex py-1.5 pb-2 px-16 sm:px-2 justify-center items-center hover:text-white h-fit md:h-fit rounded-[0.6rem]"><NavLink to="/contact" className={navLinkStyle}>Contact</NavLink></li>
-          </ul>
+          <div className="p-6 flex flex-col space-y-6">
+            <NavLink onClick={() => setIsOpen(false)} to="/" className={navLinkStyle}>Home</NavLink>
+            <NavLink onClick={() => setIsOpen(false)} to="/about" className={navLinkStyle}>About</NavLink>
+            <NavLink onClick={() => setIsOpen(false)} to="/product" className={navLinkStyle}>Product</NavLink>
+            <NavLink onClick={() => setIsOpen(false)} to="/contact" className={navLinkStyle}>Contact</NavLink>
+          </div>
         </nav>
       </header>
     </>

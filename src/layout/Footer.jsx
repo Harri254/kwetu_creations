@@ -38,19 +38,19 @@ function Footer() {
             </li>
           </ul>
           <div className="text-white flex justify-around w-[60%] mx-auto text-[1.6rem] sm:w-[60%] md:items-center md:text-4xl md:w-[40%] md:mx-0 md:ml-4 md:mr-auto">
-            <a href="http://www.github.com/harri254/" className="hover:text-secondary">
+            <a href="http://www.github.com/harri254/" className="hover:text-secondary" target='_blank'>
               <FontAwesomeIcon icon={['fab', 'github']} />{' '}
               <span className="sr-only">GitHub</span>
             </a>
-            <a href="https://web.facebook.com/katu.theman" className="hover:text-secondary">
+            <a href="https://web.facebook.com/katu.theman" className="hover:text-secondary" target='_blank'>
               <FontAwesomeIcon icon={['fab', 'facebook']} />{' '}
               <span className="sr-only">Facebook</span>
             </a>
-            <a href="https://x.com/katutheman/" className="hover:text-secondary">
+            <a href="https://x.com/katutheman/" className="hover:text-secondary" target='_blank'>
               <FontAwesomeIcon icon={['fab', 'twitter']} />{' '}
               <span className="sr-only">X(Twitter)</span>
             </a>
-            <a href="https://www.instagram.com/katu_the.man/" className="hover:text-secondary">
+            <a href="https://www.instagram.com/katu_the.man/" className="hover:text-secondary" target='_blank'>
               <FontAwesomeIcon icon={['fab', 'instagram']} />{' '}
               <span className="sr-only">Instagram</span>
             </a>
