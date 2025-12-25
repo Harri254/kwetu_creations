@@ -1,4 +1,5 @@
 function About() {
+  
   return (
     <section className="bg-white py-12 md:py-20 px-6">
       {/* Container to keep content centered and readable */}

@@ -10,6 +10,7 @@ import LogIn from './pages/LogIn.jsx'
 import CreateAccount from './pages/CraeteAccount.jsx'
 import Owner from './pages/Owner.jsx'
 import Header from './layout/Header.jsx'
+import Cart from './pages/Cart.jsx'
 
 
 
@@ -27,6 +28,7 @@ function App() {
         <Route path='/createAccount' element={<CreateAccount/>}></Route>
         <Route path='/about' element={<About/>}></Route>
         <Route path='/contact' element={<Contact/>}></Route>
+        <Route path='/cart' element={<Cart/>}></Route>
       </Routes>
       <Footer/>
     </BrowserRouter>

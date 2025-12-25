@@ -76,7 +76,7 @@ function Product() {
               <div className="flex items-center justify-between mt-auto">
                 <span className="text-2xl font-extrabold text-primary">
                   <span className="text-sm font-normal text-gray-400 mr-1">KES</span>
-                  {product.price}
+                  {product.price}/=
                 </span>
                 
                 <button className="bg-primary text-white p-3 rounded-xl hover:bg-secondary transition-colors shadow-md shadow-primary/10">
