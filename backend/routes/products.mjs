@@ -5,6 +5,38 @@ import { removeStoredFile } from "../utils/uploads.mjs";
 
 const router = Router();
 
+router.get("/homepage", async (_req, res) => {
+  const result = await pool.query(`
+    SELECT id, name, slug, category, image_url, price, description, status, created_at
+    FROM (
+      SELECT
+        id,
+        name,
+        slug,
+        category,
+        image_url,
+        price,
+        description,
+        status,
+        created_at,
+        ROW_NUMBER() OVER (PARTITION BY category ORDER BY created_at DESC) AS row_number
+      FROM products
+      WHERE status = 'active'
+    ) ranked_products
+    WHERE row_number <= 3
+    ORDER BY
+      CASE category
+        WHEN 'latest' THEN 1
+        WHEN 'products' THEN 2
+        WHEN 'services' THEN 3
+        ELSE 4
+      END,
+      created_at DESC
+  `);
+
+  res.json({ products: result.rows.map(serializeProduct) });
+});
+
 router.get("/", async (req, res) => {
   const category = req.query.category ? normalizeCategory(req.query.category) : null;
   const includeAll = req.user?.role === "admin" && req.query.includeAll === "true";
@@ -33,6 +65,30 @@ router.get("/", async (req, res) => {
 
   const result = await pool.query(query, values);
   res.json({ products: result.rows.map(serializeProduct) });
+});
+
+router.get("/slug/:slug", async (req, res) => {
+  const includeDraft = req.user?.role === "admin";
+  const values = [req.params.slug];
+  let query = `
+    SELECT id, name, slug, category, image_url, price, description, status, created_at
+    FROM products
+    WHERE slug = $1
+  `;
+
+  if (!includeDraft) {
+    query += ` AND status = 'active'`;
+  }
+
+  query += ` LIMIT 1`;
+
+  const result = await pool.query(query, values);
+  if (!result.rowCount) {
+    res.status(404).json({ message: "Product not found." });
+    return;
+  }
+
+  res.json({ product: serializeProduct(result.rows[0]) });
 });
 
 router.post("/", async (req, res) => {

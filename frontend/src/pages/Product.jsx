@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { PRODUCT_CATEGORIES } from "../constants/categories";
@@ -8,6 +8,7 @@ import { useCart } from "../hooks/useCart";
 
 function Product() {
   const { category } = useParams();
+  const navigate = useNavigate();
   const { addToCart } = useCart();
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -83,7 +84,16 @@ function Product() {
           {products.map((product) => (
             <div
               key={product.id}
-              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col"
+              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col cursor-pointer"
+              role="button"
+              tabIndex={0}
+              onClick={() => navigate(`/product/item/${product.slug}`)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  navigate(`/product/item/${product.slug}`);
+                }
+              }}
             >
               <div className="relative aspect-[4/5] overflow-hidden">
                 <img
@@ -99,7 +109,6 @@ function Product() {
               <div className="p-5 flex flex-col justify-between flex-grow">
                 <div className="mb-4">
                   <h4 className="text-secondary font-bold text-lg">{product.name}</h4>
-                  <p className="text-sm text-gray-500 mt-2 line-clamp-3">{product.description || "Creative product ready for your next campaign."}</p>
                 </div>
 
                 <div className="flex items-center justify-between mt-auto gap-3">
@@ -109,7 +118,10 @@ function Product() {
                   </span>
 
                   <button
-                    onClick={() => addToCart(product)}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      addToCart(product);
+                    }}
                     className="bg-primary text-white p-3 rounded-xl hover:bg-secondary transition-colors shadow-md shadow-primary/10"
                   >
                     <FontAwesomeIcon icon={faCartPlus} />

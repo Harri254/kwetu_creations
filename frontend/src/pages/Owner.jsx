@@ -248,7 +248,7 @@ function Owner() {
               <input type="file" accept="image/*" onChange={handleFileChange} className="absolute inset-0 opacity-0 cursor-pointer" />
               <FontAwesomeIcon icon={faImage} className="text-4xl text-gray-300 mb-4" />
               <p className="text-gray-500">Upload a product image or cover art.</p>
-              <p className="text-sm text-gray-400 mt-2">Images are uploaded to local storage and served from the backend.</p>
+              <p className="text-sm text-gray-400 mt-2">Images are uploaded to ImgBB and the returned image URL is saved with the product.</p>
             </div>
 
             <div className="rounded-3xl border border-gray-100 bg-gray-50 p-4">

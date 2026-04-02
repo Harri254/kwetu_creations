@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { apiRequest, toMediaUrl } from "../lib/api";
 import { PRODUCT_CATEGORIES } from "../constants/categories";
+import { useCart } from "../hooks/useCart";
 
 const categoryTone = {
   latest: "from-[#F6E6D8] to-white",
@@ -10,6 +13,8 @@ const categoryTone = {
 };
 
 function Home() {
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
@@ -17,7 +22,7 @@ function Home() {
   useEffect(() => {
     let isMounted = true;
 
-    apiRequest("/api/products")
+    apiRequest("/api/products/homepage")
       .then((payload) => {
         if (isMounted) {
           setProducts(payload.products);
@@ -66,17 +71,9 @@ function Home() {
         </section>
       ) : (
         <section className="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-12">
-          <div className="mb-10 text-center">
-            <p className="text-xs uppercase tracking-[0.3em] text-secondary">Kwetu Creations</p>
-            <h1 className="mt-4 text-4xl md:text-5xl font-black text-primary">Latest work, products, and services.</h1>
-            <p className="mt-4 max-w-2xl mx-auto text-gray-600 leading-7">
-              A simple overview of the newest published work and the main things currently available.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-6">
+          <div className="space-y-8">
             {grouped.map((section) => (
-              <CategoryPanel key={section.value} section={section} />
+              <CategoryPanel key={section.value} section={section} navigate={navigate} addToCart={addToCart} />
             ))}
           </div>
         </section>
@@ -85,12 +82,18 @@ function Home() {
   );
 }
 
-function CategoryPanel({ section }) {
-  const lead = section.items[0];
-  const remaining = section.items.slice(1, 3);
+function CategoryPanel({ section, navigate, addToCart }) {
+  const displayItems = [...section.items];
+
+  while (displayItems.length < 3) {
+    displayItems.push({
+      id: `placeholder-${section.value}-${displayItems.length}`,
+      isPlaceholder: true,
+    });
+  }
 
   return (
-    <section className={`rounded-[2rem] border border-black/5 bg-gradient-to-b ${categoryTone[section.value]} p-5 md:p-6 shadow-[0_18px_40px_rgba(7,46,74,0.05)]`}>
+    <section className={`rounded-[2rem] border border-black/5 bg-gradient-to-r ${categoryTone[section.value]} p-5 md:p-6 shadow-[0_18px_40px_rgba(7,46,74,0.05)]`}>
       <div className="flex items-start justify-between gap-4 mb-5">
         <div>
           <p className="uppercase tracking-[0.28em] text-xs text-secondary mb-2">{section.value}</p>
@@ -101,38 +104,70 @@ function CategoryPanel({ section }) {
         </Link>
       </div>
 
-      {lead ? (
-        <div className="overflow-hidden rounded-[1.6rem] bg-white shadow-[0_14px_30px_rgba(7,46,74,0.04)]">
-          <img src={toMediaUrl(lead.imageUrl)} alt={lead.name} className="h-64 w-full object-cover" />
-          <div className="p-5">
-            <p className="text-xl font-black text-primary">{lead.name}</p>
-            <p className="mt-2 line-clamp-3 text-sm text-gray-600">{lead.description || "Published work from the live catalogue."}</p>
-            <div className="mt-4 flex items-center justify-between gap-3">
-              <span className="text-secondary font-black">KES {lead.price}/=</span>
-              <span className="text-xs uppercase tracking-[0.22em] text-gray-400">{section.items.length} item{section.items.length === 1 ? "" : "s"}</span>
-            </div>
-          </div>
+      {section.items.length > 0 ? (
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {displayItems.map((item) =>
+            item.isPlaceholder ? (
+              <article
+                key={item.id}
+                className="flex min-h-[19rem] flex-col justify-center rounded-[1.6rem] border border-dashed border-primary/15 bg-white/70 p-6 text-center shadow-[0_14px_30px_rgba(7,46,74,0.03)]"
+              >
+                <p className="text-sm uppercase tracking-[0.24em] text-secondary/70">Coming soon</p>
+                <p className="mt-4 text-xl font-black text-primary">More work in {section.label}</p>
+                <p className="mt-3 text-sm leading-7 text-gray-500">
+                  This shelf will automatically fill out as more items are published in the dashboard.
+                </p>
+              </article>
+            ) : (
+              <article
+                key={item.id}
+                className="overflow-hidden rounded-[1.6rem] shadow-[0_14px_30px_rgba(7,46,74,0.04)] transition-transform duration-300 hover:-translate-y-1 cursor-pointer"
+                role="button"
+                tabIndex={0}
+                onClick={() => navigate(`/product/item/${item.slug}`)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    navigate(`/product/item/${item.slug}`);
+                  }
+                }}
+              >
+                <div className="relative min-h-[23rem]">
+                  <img
+                    src={toMediaUrl(item.imageUrl)}
+                    alt={item.name}
+                    loading="lazy"
+                    decoding="async"
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/12 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-5">
+                    <p className="text-xl font-black text-white">{item.name}</p>
+                    <div className="mt-4 flex items-center justify-between gap-3">
+                      <span className="font-black text-white">KES {item.price}/=</span>
+                    <button
+                      type="button"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        addToCart(item);
+                      }}
+                      className="inline-flex items-center justify-center rounded-xl border border-white/25 bg-white/15 p-3 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
+                      aria-label={`Add ${item.name} to cart`}
+                    >
+                      <FontAwesomeIcon icon={faCartPlus} />
+                    </button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            )
+          )}
         </div>
       ) : (
         <div className="rounded-[1.6rem] bg-white px-5 py-14 text-center text-gray-500">
           Nothing published here yet.
         </div>
       )}
-
-      {remaining.length > 0 ? (
-        <div className="mt-4 grid gap-3">
-          {remaining.map((item) => (
-            <div key={item.id} className="flex items-center gap-4 rounded-[1.2rem] bg-white px-4 py-3 shadow-[0_12px_24px_rgba(7,46,74,0.03)]">
-              <img src={toMediaUrl(item.imageUrl)} alt={item.name} className="h-16 w-16 rounded-2xl object-cover" />
-              <div className="min-w-0 flex-1">
-                <p className="truncate font-bold text-primary">{item.name}</p>
-                <p className="truncate text-sm text-gray-500">{item.description || "Published work from the live catalogue."}</p>
-              </div>
-              <span className="whitespace-nowrap text-sm font-bold text-secondary">KES {item.price}</span>
-            </div>
-          ))}
-        </div>
-      ) : null}
     </section>
   );
 }

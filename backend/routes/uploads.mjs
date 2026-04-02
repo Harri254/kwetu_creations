@@ -1,11 +1,16 @@
 import { Router } from "express";
-import { saveImageBuffer } from "../utils/uploads.mjs";
 
 const router = Router();
 
 router.post("/", async (req, res) => {
+  const apiKey = process.env.IMGBB_API_KEY;
   const mimeType = String(req.headers["content-type"] || "").toLowerCase();
   const originalName = String(req.headers["x-file-name"] || "upload");
+
+  if (!apiKey) {
+    res.status(500).json({ message: "ImgBB is not configured on the server." });
+    return;
+  }
 
   if (!mimeType.startsWith("image/")) {
     res.status(400).json({ message: "Only image uploads are supported." });
@@ -23,16 +28,26 @@ router.post("/", async (req, res) => {
     return;
   }
 
-  const file = await saveImageBuffer({
-    buffer: req.body,
-    originalName,
-    mimeType,
+  const formData = new FormData();
+  formData.append("image", new Blob([req.body], { type: mimeType }), decodeURIComponent(originalName));
+  formData.append("name", decodeURIComponent(originalName).replace(/\.[^.]+$/, ""));
+
+  const response = await fetch(`https://api.imgbb.com/1/upload?key=${encodeURIComponent(apiKey)}`, {
+    method: "POST",
+    body: formData,
   });
+
+  const payload = await response.json();
+  if (!response.ok || !payload?.success || !payload?.data?.url) {
+    res.status(502).json({ message: payload?.error?.message || "ImgBB upload failed." });
+    return;
+  }
 
   res.status(201).json({
     file: {
-      name: file.fileName,
-      publicPath: file.publicPath,
+      name: payload.data.id || decodeURIComponent(originalName),
+      publicPath: payload.data.url,
+      deleteUrl: payload.data.delete_url || null,
     },
   });
 });
